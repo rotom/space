@@ -6,7 +6,7 @@ package
 	{
 		public var level:FlxTilemap;
 		public var exit:FlxSprite;
-		public var coins:FlxGroup;
+		public var documents:FlxGroup;
 		public var player:FlxSprite;
 		public var score:FlxText;
 		public var status:FlxText;
@@ -67,57 +67,57 @@ package
 			exit.exists = false;
 			add(exit);
 			
-			//Create coins to collect (see createCoin() function below for more info)
-			coins = new FlxGroup();
-			//Top left coins
-			createCoin(18,4);
-			createCoin(12,4);
-			createCoin(9,4);
-			createCoin(8,11);
-			createCoin(1,7);
-			createCoin(3,4);
-			createCoin(5,2);
-			createCoin(15,11);
-			createCoin(16,11);
+			//Create documents to collect (see createDocument() function below for more info)
+			documents = new FlxGroup();
+			//Top left documents
+			createDocument(18,4);
+			createDocument(12,4);
+			createDocument(9,4);
+			createDocument(8,11);
+			createDocument(1,7);
+			createDocument(3,4);
+			createDocument(5,2);
+			createDocument(15,11);
+			createDocument(16,11);
 			
-			//Bottom left coins
-			createCoin(3,16);
-			createCoin(4,16);
-			createCoin(1,23);
-			createCoin(2,23);
-			createCoin(3,23);
-			createCoin(4,23);
-			createCoin(5,23);
-			createCoin(12,26);
-			createCoin(13,26);
-			createCoin(17,20);
-			createCoin(18,20);
+			//Bottom left documents
+			createDocument(3,16);
+			createDocument(4,16);
+			createDocument(1,23);
+			createDocument(2,23);
+			createDocument(3,23);
+			createDocument(4,23);
+			createDocument(5,23);
+			createDocument(12,26);
+			createDocument(13,26);
+			createDocument(17,20);
+			createDocument(18,20);
 			
-			//Top right coins
-			createCoin(21,4);
-			createCoin(26,2);
-			createCoin(29,2);
-			createCoin(31,5);
-			createCoin(34,5);
-			createCoin(36,8);
-			createCoin(33,11);
-			createCoin(31,11);
-			createCoin(29,11);
-			createCoin(27,11);
-			createCoin(25,11);
-			createCoin(36,14);
+			//Top right documents
+			createDocument(21,4);
+			createDocument(26,2);
+			createDocument(29,2);
+			createDocument(31,5);
+			createDocument(34,5);
+			createDocument(36,8);
+			createDocument(33,11);
+			createDocument(31,11);
+			createDocument(29,11);
+			createDocument(27,11);
+			createDocument(25,11);
+			createDocument(36,14);
 			
-			//Bottom right coins
-			createCoin(38,17);
-			createCoin(33,17);
-			createCoin(28,19);
-			createCoin(25,20);
-			createCoin(18,26);
-			createCoin(22,26);
-			createCoin(26,26);
-			createCoin(30,26);
+			//Bottom right documents
+			createDocument(38,17);
+			createDocument(33,17);
+			createDocument(28,19);
+			createDocument(25,20);
+			createDocument(18,26);
+			createDocument(22,26);
+			createDocument(26,26);
+			createDocument(30,26);
 
-			add(coins);
+			add(documents);
 			
 			//Create player (a red box)
 			player = new FlxSprite(FlxG.width/2 - 5);
@@ -130,7 +130,7 @@ package
 			
 			score = new FlxText(2,2,80);
 			score.shadow = 0xff000000;
-			score.text = "SCORE: "+(coins.countDead()*100);
+			score.text = "SCORE: "+(documents.countDead()*100);
 			add(score);
 			
 			status = new FlxText(FlxG.width-160-2,2,160);
@@ -138,18 +138,18 @@ package
 			status.alignment = "right";
 			switch(FlxG.score)
 			{
-				case 0: status.text = "Collect coins!"; break;
+				case 0: status.text = "Grab the docs!"; break;
 				case 1: status.text = "Aww, you died!"; break;
 			}
 			add(status);
 		}
 		
-		//creates a new coin located on the specified tile
-		public function createCoin(X:uint,Y:uint):void
+		//creates a new document located on the specified tile
+		public function createDocument(X:uint,Y:uint):void
 		{
-			var coin:FlxSprite = new FlxSprite(X*8+3,Y*8+2);
-			coin.makeGraphic(2,4,0xffffff00);
-			coins.add(coin);
+			var document:FlxSprite = new FlxSprite(X*8+3,Y*8+2);
+			document.makeGraphic(2,4,0xffffff00);
+			documents.add(document);
 		}
 		
 		private function gravityFlip(timer:FlxTimer):void
@@ -188,8 +188,8 @@ package
 			//Updates all the objects appropriately
 			super.update();
 
-			//Check if player collected a coin or coins this frame
-			FlxG.overlap(coins,player,getCoin);
+			//Check if player collected a document or documents this frame
+			FlxG.overlap(documents,player,getDocument);
 			
 			//Check to see if the player touched the exit door this frame
 			FlxG.overlap(exit,player,win);
@@ -205,12 +205,12 @@ package
 			}
 		}
 		
-		//Called whenever the player touches a coin
-		public function getCoin(Coin:FlxSprite,Player:FlxSprite):void
+		//Called whenever the player touches a document
+		public function getDocument(Document:FlxSprite,Player:FlxSprite):void
 		{
-			Coin.kill();
-			score.text = "SCORE: "+(coins.countDead()*100);
-			if(coins.countLiving() == 0)
+			Document.kill();
+			score.text = "SCORE: "+(documents.countDead()*100);
+			if(documents.countLiving() == 0)
 			{
 				status.text = "Escape the ship!";
 				exit.exists = true;
