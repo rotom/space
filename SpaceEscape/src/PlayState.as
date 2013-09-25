@@ -183,18 +183,16 @@ package
 				player.acceleration.x = -player.maxVelocity.x*4;
 			if(FlxG.keys.RIGHT)
 				player.acceleration.x = player.maxVelocity.x*4;
-			if (FlxG.keys.justPressed("SPACE"))
-				if (player.isTouching(FlxObject.FLOOR) && player.acceleration.y > 0)
-				{
+			if (player.isTouching(FlxObject.FLOOR) && player.acceleration.y > 0)
+			{
+				if (FlxG.keys.justPressed("SPACE")||FlxG.keys.justPressed("UP"))
 					player.velocity.y = -player.maxVelocity.y / 2;
-				}
-				else if (player.isTouching(FlxObject.CEILING) && player.acceleration.y < 0)
-				{
+			}
+			else if (player.isTouching(FlxObject.CEILING) && player.acceleration.y < 0)
+			{
+				if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("DOWN"))	
 					player.velocity.y = player.maxVelocity.y / 2;
-				}
-			//if(FlxG.keys.justPressed("DOWN"))
-			//	player.acceleration.y = -player.acceleration.y;
-				
+			}	
 			
 			//Updates all the objects appropriately
 			super.update();
