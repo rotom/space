@@ -20,7 +20,7 @@ package
 			timer = new FlxTimer();
 			timer.start((flipTime + 5 * (FlxG.random())), 1, gravityFlip);
 			gameTimer = new FlxTimer();
-			gameTimer.start(10, 1, killPlayer);
+			gameTimer.start(120, 1, killPlayer);
 			//Set the background color to light gray (0xAARRGGBB)
 			FlxG.bgColor = 0xffaaaaaa;
 			
