@@ -150,9 +150,7 @@ package
 		}
 		
 		private function gravityFlip(timer:FlxTimer):void
-		{
-			
-			trace('flippin, yo');
+		{		
 			player.acceleration.y = -player.acceleration.y;
 			timer.start(flipTime+5*(FlxG.random()), 1, gravityFlip);
 		}
@@ -168,12 +166,10 @@ package
 			if (FlxG.keys.justPressed("SPACE"))
 				if (player.isTouching(FlxObject.FLOOR) && player.acceleration.y > 0)
 				{
-					trace("if statement, bitchez");
 					player.velocity.y = -player.maxVelocity.y / 2;
 				}
 				else if (player.isTouching(FlxObject.CEILING) && player.acceleration.y < 0)
 				{
-					trace("else statement, friendz");
 					player.velocity.y = player.maxVelocity.y / 2;
 				}
 			//if(FlxG.keys.justPressed("DOWN"))
@@ -207,7 +203,7 @@ package
 			score.text = "SCORE: "+(coins.countDead()*100);
 			if(coins.countLiving() == 0)
 			{
-				status.text = "Find the exit.";
+				status.text = "Escape the ship!";
 				exit.exists = true;
 			}
 		}
