@@ -11,12 +11,15 @@ package
 		public var score:FlxText;
 		public var status:FlxText;
 		public var timer:FlxTimer;
+		public var gameTimer:FlxTimer;
 		private var flipTime:Number = 5;
 		
 		override public function create():void
 		{
 			timer = new FlxTimer();
-			timer.start((flipTime+5*(FlxG.random())), 1, gravityFlip);
+			//timer.start((flipTime + 5 * (FlxG.random())), 1, gravityFlip);
+			gameTimer = new FlxTimer();
+			gameTimer.start(120, 1, killPlayer);
 			//Set the background color to light gray (0xAARRGGBB)
 			FlxG.bgColor = 0xffaaaaaa;
 			
@@ -153,6 +156,12 @@ package
 		{		
 			player.acceleration.y = -player.acceleration.y;
 			timer.start(flipTime+5*(FlxG.random()), 1, gravityFlip);
+		}
+		
+		private function killPlayer(gameTimer:FlxTimer):void
+		{
+			FlxG.score = 1;
+			FlxG.resetState();
 		}
 		
 		override public function update():void
