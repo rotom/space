@@ -10,6 +10,7 @@ package
 		public var player:FlxSprite;
 		public var score:FlxText;
 		public var status:FlxText;
+		public var countDown:FlxText;
 		public var timer:FlxTimer;
 		public var gameTimer:FlxTimer;
 		private var flipTime:Number = 5;
@@ -17,9 +18,9 @@ package
 		override public function create():void
 		{
 			timer = new FlxTimer();
-			//timer.start((flipTime + 5 * (FlxG.random())), 1, gravityFlip);
+			timer.start((flipTime + 5 * (FlxG.random())), 1, gravityFlip);
 			gameTimer = new FlxTimer();
-			gameTimer.start(120, 1, killPlayer);
+			gameTimer.start(10, 1, killPlayer);
 			//Set the background color to light gray (0xAARRGGBB)
 			FlxG.bgColor = 0xffaaaaaa;
 			
@@ -136,19 +137,27 @@ package
 			status = new FlxText(FlxG.width-160-2,2,160);
 			status.shadow = 0xff000000;
 			status.alignment = "right";
+			
+			countDown = new FlxText(FlxG.width-160-2,2,160);
+			countDown.shadow = 0xff000000;
+			countDown.alignment = "left";
+			countDown.text = String(gameTimer.timeLeft);
+			
 			switch(FlxG.score)
 			{
 				case 0: status.text = "Grab the docs!"; break;
 				case 1: status.text = "Aww, you died!"; break;
 			}
+
 			add(status);
+			add(countDown);
 		}
 		
 		//creates a new document located on the specified tile
 		public function createDocument(X:uint,Y:uint):void
 		{
 			var document:FlxSprite = new FlxSprite(X*8+3,Y*8+2);
-			document.makeGraphic(2,4,0xffffff00);
+			document.makeGraphic(2,4,0xffffffff);
 			documents.add(document);
 		}
 		
@@ -161,11 +170,13 @@ package
 		private function killPlayer(gameTimer:FlxTimer):void
 		{
 			FlxG.score = 1;
-			FlxG.resetState();
+			player.kill();
+			status.text = "Time's up! You dead!"
 		}
 		
 		override public function update():void
 		{
+			countDown.text = String(Math.ceil(gameTimer.timeLeft));
 			//Player movement and controls
 			player.acceleration.x = 0;
 			if(FlxG.keys.LEFT)
