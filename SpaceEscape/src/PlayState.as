@@ -229,6 +229,7 @@ package
 		//Called whenever the player touches the exit
 		public function win(Exit:FlxSprite,Player:FlxSprite):void
 		{
+			gameTimer.stop();
 			status.text = "Yay, you won!";
 			score.text = "SCORE: 5000";
 			Player.kill();
