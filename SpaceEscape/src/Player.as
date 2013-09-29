@@ -11,8 +11,8 @@ package
 			super(FlxG.width/2 - 5);
 			this.makeGraphic(10,12,0xff7FFF00);
 			this.maxVelocity.x = 80;
-			this.maxVelocity.y = 250;
-			this.acceleration.y = 250;
+			this.maxVelocity.y = 300;
+			this.acceleration.y = 300;
 			this.drag.x = this.maxVelocity.x*4;
 		}
 		
