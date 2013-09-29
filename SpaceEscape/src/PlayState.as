@@ -120,13 +120,8 @@ package
 
 			add(documents);
 			
-			//Create player (a red box)
-			player = new FlxSprite(FlxG.width/2 - 5);
-			player.makeGraphic(10,12,0xff7FFF00);
-			player.maxVelocity.x = 80;
-			player.maxVelocity.y = 200;
-			player.acceleration.y = 200;
-			player.drag.x = player.maxVelocity.x*4;
+			//Create player
+			player = new Player()
 			add(player);
 			
 			score = new FlxText(2,2,80);
@@ -177,22 +172,6 @@ package
 		override public function update():void
 		{
 			countDown.text = String(Math.ceil(gameTimer.timeLeft));
-			//Player movement and controls
-			player.acceleration.x = 0;
-			if(FlxG.keys.LEFT)
-				player.acceleration.x = -player.maxVelocity.x*4;
-			if(FlxG.keys.RIGHT)
-				player.acceleration.x = player.maxVelocity.x*4;
-			if (player.isTouching(FlxObject.FLOOR) && player.acceleration.y > 0)
-			{
-				if (FlxG.keys.justPressed("SPACE")||FlxG.keys.justPressed("UP"))
-					player.velocity.y = -player.maxVelocity.y / 2;
-			}
-			else if (player.isTouching(FlxObject.CEILING) && player.acceleration.y < 0)
-			{
-				if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("DOWN"))	
-					player.velocity.y = player.maxVelocity.y / 2;
-			}	
 			
 			//Updates all the objects appropriately
 			super.update();
