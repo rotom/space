@@ -23,8 +23,8 @@ package
 		[Embed(source = "../assets/sounds/save_doc.mp3")] private var SaveDocument:Class;
 		[Embed(source = "../assets/sounds/162482__kastenfrosch__achievement.mp3")] private var DoorOpen:Class;
 		[Embed(source = "../assets/sounds/warning.mp3")] private var LowTime:Class;
-		private var playedLowTime:Boolean = false;
-		[Embed(source="../assets/sounds/explosion.mp3")] private var Explosion:Class;
+		private var playLowTime:Boolean = true;
+		[Embed(source="../assets/sounds/explosion2.mp3")] private var Explosion:Class;
 		
 		override public function create():void
 		{
@@ -162,9 +162,11 @@ package
 		}
 		
 		private function explodePlayer(gameTimer:FlxTimer):void {
+			playLowTime = false;
 			FlxG.play(Explosion);
 			killPlayer();
 			FlxG.bgColor = 0xffff0000;
+			exit.exists = false;
 			status.text = "Time's up! You dead!"			
 		}
 		
@@ -178,12 +180,10 @@ package
 		override public function update():void
 		{
 			countDown.text = String(Math.ceil(gameTimer.timeLeft));
-			//Play Time Warning at 3 Seconds Left
-			/*
-			if (gameTimer.timeLeft < 3 && playedLowTime == false) {
+			//Play Time Warning at 5 Seconds Left
+			if (gameTimer.timeLeft < 5 && playLowTime && gameTimer.timeLeft > 2.5) {
 				FlxG.play(LowTime);
-				playedLowTime = true;
-			}*/
+			}
 			
 			//Updates all the objects appropriately
 			super.update();
@@ -293,7 +293,7 @@ package
 			var docs:FlxGroup = new FlxGroup();
 			
 			//Top left documents
-			/*
+			
 			docs.add(createDocument(18,4));
 			docs.add(createDocument(12,4));
 			docs.add(createDocument(9,4));
@@ -339,7 +339,7 @@ package
 			docs.add(createDocument(18,26));
 			docs.add(createDocument(22,26));
 			docs.add(createDocument(26,26));
-			docs.add(createDocument(30,26));*/
+			docs.add(createDocument(30,26));
 			
 			return docs;				
 		}
