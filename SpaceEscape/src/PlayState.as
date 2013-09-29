@@ -16,6 +16,9 @@ package
 		private var flipTime:Number = 5;
 		private var currentLevel:Number = 0;
 		
+		[Embed(source = "../assets/sounds/save_doc.mp3")] private var SaveDocument:Class;
+		[Embed(source="../assets/sounds/162482__kastenfrosch__achievement.mp3")] private var DoorOpen:Class;
+		
 		override public function create():void
 		{
 			timer = new FlxTimer();
@@ -154,10 +157,12 @@ package
 		//Called whenever the player touches a document
 		public function getDocument(Document:FlxSprite,Player:FlxSprite):void
 		{
+			FlxG.play(SaveDocument);
 			Document.kill();
 			score.text = "SCORE: "+(documents.countDead()*100);
 			if(documents.countLiving() == 0)
 			{
+				FlxG.play(DoorOpen);
 				status.text = "Escape the ship!";
 				exit.exists = true;
 			}
