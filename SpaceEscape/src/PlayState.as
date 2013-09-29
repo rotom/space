@@ -16,6 +16,7 @@ package
 		public var gameTimer:FlxTimer;
 		private var flipTime:Number = 10;
 		private var currentLevel:Number = 0;
+		private var won:Boolean = false;
 		
 		//Embed Sounds
 		[Embed(source = "../assets/sounds/162485__kastenfrosch__space.mp3")] private var StartLevel:Class;
@@ -73,16 +74,16 @@ package
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 			1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+			1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -106,7 +107,9 @@ package
 			add(level);
 			
 			//Create the level exit, a dark gray box that is hidden at first
-			exit = new Exit(35*8+1,27*8);
+			//exit = new Exit(35 * 8 + 1, 27 * 8);
+			//level2
+			exit = new Exit(19, 27 * 8);
 			add(exit);
 			
 			//Create documents to save
@@ -190,9 +193,14 @@ package
 
 			//Check if player collected a document or documents this frame
 			FlxG.overlap(documents,player,getDocument);
+		
+			//Trigger Player Exit on Door Open
+			if (won) {
+				FlxG.overlap(exit,player,win);
+			}
 			
 			//Finally, bump the player up against the level
-			FlxG.collide(level,player);
+			FlxG.collide(level, player);
 			
 			//Check for player lose conditions
 			if(player.y > FlxG.height)
@@ -212,9 +220,9 @@ package
 			{
 				FlxG.play(DoorOpen);
 				status.text = "Escape the ship!";
-				//Trigger Player Exit on Door Open
 				exit.open();
-				FlxG.overlap(exit,player,win);
+				won = true;
+				add(exit);
 			}
 		}
 		
@@ -293,53 +301,71 @@ package
 			var docs:FlxGroup = new FlxGroup();
 			
 			//Top left documents
-			
-			docs.add(createDocument(18,4));
 			docs.add(createDocument(12,4));
 			docs.add(createDocument(9,4));
 			docs.add(createDocument(8,11));
 			docs.add(createDocument(1,7));
-			docs.add(createDocument(3,4));
-			docs.add(createDocument(5,2));
-			docs.add(createDocument(15,11));
+			docs.add(createDocument(3,2));
+			docs.add(createDocument(4, 2));
+			docs.add(createDocument(16,9));
+			docs.add(createDocument(16,10));
 			docs.add(createDocument(16,11));
+			
+			//Top right documents
+			docs.add(createDocument(18,3));
+			docs.add(createDocument(21, 3));
+			
+			docs.add(createDocument(25,2));
+			docs.add(createDocument(26,1));
+			docs.add(createDocument(26,2));
+			docs.add(createDocument(26,3));
+			docs.add(createDocument(27,2));
+			
+			docs.add(createDocument(31,5));
+			docs.add(createDocument(32,5));
+			docs.add(createDocument(33,5));
+			docs.add(createDocument(36,8));
+			docs.add(createDocument(26,11));
+			docs.add(createDocument(25,11));
+			
+			docs.add(createDocument(28,12));
+			docs.add(createDocument(37,12));
+			docs.add(createDocument(38,12));
 			
 			//Bottom left documents
 			docs.add(createDocument(3,16));
 			docs.add(createDocument(4,16));
-			docs.add(createDocument(1,23));
-			docs.add(createDocument(2,23));
-			docs.add(createDocument(3,23));
-			docs.add(createDocument(4,23));
+			docs.add(createDocument(1,24));
+			docs.add(createDocument(2,24));
+			docs.add(createDocument(1,28));
 			docs.add(createDocument(5,23));
-			docs.add(createDocument(12,26));
-			docs.add(createDocument(13,26));
-			docs.add(createDocument(17,20));
-			docs.add(createDocument(18,20));
+			docs.add(createDocument(7,21));
+			docs.add(createDocument(8,21));
 			
-			//Top right documents
-			docs.add(createDocument(21,4));
-			docs.add(createDocument(26,2));
-			docs.add(createDocument(29,2));
-			docs.add(createDocument(31,5));
-			docs.add(createDocument(34,5));
-			docs.add(createDocument(36,8));
-			docs.add(createDocument(33,11));
-			docs.add(createDocument(31,11));
-			docs.add(createDocument(29,11));
-			docs.add(createDocument(27,11));
-			docs.add(createDocument(25,11));
-			docs.add(createDocument(36,14));
+			//Bottom Middle Documents
+			docs.add(createDocument(17,20));
+			docs.add(createDocument(18, 20));
+
+			docs.add(createDocument(10,21));
+			docs.add(createDocument(10,24));
+			
+			docs.add(createDocument(15,28));
+			docs.add(createDocument(16,28));
+			docs.add(createDocument(17,28));
+			docs.add(createDocument(18,28));
 			
 			//Bottom right documents
-			docs.add(createDocument(38,17));
-			docs.add(createDocument(33,17));
-			docs.add(createDocument(28,19));
-			docs.add(createDocument(25,20));
-			docs.add(createDocument(18,26));
-			docs.add(createDocument(22,26));
-			docs.add(createDocument(26,26));
-			docs.add(createDocument(30,26));
+			docs.add(createDocument(37,14));
+			docs.add(createDocument(38,14));
+			docs.add(createDocument(37,15));
+			docs.add(createDocument(38,15));
+			docs.add(createDocument(38,28));
+			docs.add(createDocument(37,28));
+			docs.add(createDocument(30,21));
+			docs.add(createDocument(33,24));
+			docs.add(createDocument(23,21));
+			docs.add(createDocument(23,26));
+			docs.add(createDocument(25,26));
 			
 			return docs;				
 		}

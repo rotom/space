@@ -15,8 +15,7 @@ package
 		
 		//Change the Door's Graphics
 		public function open():void {
-			trace("poop");
-			//this.loadGraphic(openDoor);
+			this.loadGraphic(openDoor);
 		}
 	}
 	
