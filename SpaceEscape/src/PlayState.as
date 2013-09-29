@@ -68,56 +68,11 @@ package
 			exit.exists = false;
 			add(exit);
 			
-			//Create documents to collect (see createDocument() function below for more info)
-			documents = new FlxGroup();
-			//Top left documents
-			createDocument(18,4);
-			createDocument(12,4);
-			createDocument(9,4);
-			createDocument(8,11);
-			createDocument(1,7);
-			createDocument(3,4);
-			createDocument(5,2);
-			createDocument(15,11);
-			createDocument(16,11);
+			//Create documents to save
+			//documents = addLevelOneDocuments();
+			documents = addLevelTwoDocuments();
 			
-			//Bottom left documents
-			createDocument(3,16);
-			createDocument(4,16);
-			createDocument(1,23);
-			createDocument(2,23);
-			createDocument(3,23);
-			createDocument(4,23);
-			createDocument(5,23);
-			createDocument(12,26);
-			createDocument(13,26);
-			createDocument(17,20);
-			createDocument(18,20);
 			
-			//Top right documents
-			createDocument(21,4);
-			createDocument(26,2);
-			createDocument(29,2);
-			createDocument(31,5);
-			createDocument(34,5);
-			createDocument(36,8);
-			createDocument(33,11);
-			createDocument(31,11);
-			createDocument(29,11);
-			createDocument(27,11);
-			createDocument(25,11);
-			createDocument(36,14);
-			
-			//Bottom right documents
-			createDocument(38,17);
-			createDocument(33,17);
-			createDocument(28,19);
-			createDocument(25,20);
-			createDocument(18,26);
-			createDocument(22,26);
-			createDocument(26,26);
-			createDocument(30,26);
-
 			add(documents);
 			
 			//Create player
@@ -149,11 +104,11 @@ package
 		}
 		
 		//creates a new document located on the specified tile
-		public function createDocument(X:uint,Y:uint):void
+		public function createDocument(X:uint,Y:uint):FlxSprite
 		{
 			var document:FlxSprite = new FlxSprite(X*8+3,Y*8+2);
-			document.makeGraphic(2,4,0xffffffff);
-			documents.add(document);
+			document.makeGraphic(2, 4, 0xffffffff);
+			return document;
 		}
 		
 		private function gravityFlip(timer:FlxTimer):void
@@ -213,5 +168,115 @@ package
 			score.text = "SCORE: 5000";
 			Player.kill();
 		}
+		
+		public function addLevelOneDocuments():FlxGroup {
+			var docs:FlxGroup = new FlxGroup();
+			
+			//Top left documents
+			docs.add(createDocument(18,4));
+			docs.add(createDocument(12,4));
+			docs.add(createDocument(9,4));
+			docs.add(createDocument(8,11));
+			docs.add(createDocument(1,7));
+			docs.add(createDocument(3,4));
+			docs.add(createDocument(5,2));
+			docs.add(createDocument(15,11));
+			docs.add(createDocument(16,11));
+			
+			//Bottom left documents
+			docs.add(createDocument(3,16));
+			docs.add(createDocument(4,16));
+			docs.add(createDocument(1,23));
+			docs.add(createDocument(2,23));
+			docs.add(createDocument(3,23));
+			docs.add(createDocument(4,23));
+			docs.add(createDocument(5,23));
+			docs.add(createDocument(12,26));
+			docs.add(createDocument(13,26));
+			docs.add(createDocument(17,20));
+			docs.add(createDocument(18,20));
+			
+			//Top right documents
+			docs.add(createDocument(21,4));
+			docs.add(createDocument(26,2));
+			docs.add(createDocument(29,2));
+			docs.add(createDocument(31,5));
+			docs.add(createDocument(34,5));
+			docs.add(createDocument(36,8));
+			docs.add(createDocument(33,11));
+			docs.add(createDocument(31,11));
+			docs.add(createDocument(29,11));
+			docs.add(createDocument(27,11));
+			docs.add(createDocument(25,11));
+			docs.add(createDocument(36,14));
+			
+			//Bottom right documents
+			docs.add(createDocument(38,17));
+			docs.add(createDocument(33,17));
+			docs.add(createDocument(28,19));
+			docs.add(createDocument(25,20));
+			docs.add(createDocument(18,26));
+			docs.add(createDocument(22,26));
+			docs.add(createDocument(26,26));
+			docs.add(createDocument(30,26));
+			
+			return docs;				
+		}
+	
+		public function addLevelTwoDocuments():FlxGroup {
+			var docs:FlxGroup = new FlxGroup();
+			
+			//Top left documents
+			/*
+			docs.add(createDocument(18,4));
+			docs.add(createDocument(12,4));
+			docs.add(createDocument(9,4));
+			docs.add(createDocument(8,11));
+			docs.add(createDocument(1,7));
+			docs.add(createDocument(3,4));
+			docs.add(createDocument(5,2));
+			docs.add(createDocument(15,11));
+			docs.add(createDocument(16,11));
+			
+			//Bottom left documents
+			docs.add(createDocument(3,16));
+			docs.add(createDocument(4,16));
+			docs.add(createDocument(1,23));
+			docs.add(createDocument(2,23));
+			docs.add(createDocument(3,23));
+			docs.add(createDocument(4,23));
+			docs.add(createDocument(5,23));
+			docs.add(createDocument(12,26));
+			docs.add(createDocument(13,26));
+			docs.add(createDocument(17,20));
+			docs.add(createDocument(18,20));
+			
+			//Top right documents
+			docs.add(createDocument(21,4));
+			docs.add(createDocument(26,2));
+			docs.add(createDocument(29,2));
+			docs.add(createDocument(31,5));
+			docs.add(createDocument(34,5));
+			docs.add(createDocument(36,8));
+			docs.add(createDocument(33,11));
+			docs.add(createDocument(31,11));
+			docs.add(createDocument(29,11));
+			docs.add(createDocument(27,11));
+			docs.add(createDocument(25,11));
+			docs.add(createDocument(36,14));
+			
+			//Bottom right documents
+			docs.add(createDocument(38,17));
+			docs.add(createDocument(33,17));
+			docs.add(createDocument(28,19));
+			docs.add(createDocument(25,20));
+			docs.add(createDocument(18,26));
+			docs.add(createDocument(22,26));
+			docs.add(createDocument(26,26));
+			docs.add(createDocument(30,26));*/
+			
+			return docs;				
+		}
 	}
+	
 }
