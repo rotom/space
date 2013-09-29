@@ -11,20 +11,26 @@ package
 		public var score:FlxText;
 		public var status:FlxText;
 		public var countDown:FlxText;
+		private var levelLength:Number = 20;
 		public var timer:FlxTimer;
 		public var gameTimer:FlxTimer;
 		private var flipTime:Number = 5;
 		private var currentLevel:Number = 0;
 		
+		[Embed(source = "../assets/sounds/162485__kastenfrosch__space.mp3")] private var StartLevel:Class;
+		[Embed(source="../assets/sounds/zoom gravity change.mp3")] private var GravityFlipWarning:Class;
 		[Embed(source = "../assets/sounds/save_doc.mp3")] private var SaveDocument:Class;
-		[Embed(source="../assets/sounds/162482__kastenfrosch__achievement.mp3")] private var DoorOpen:Class;
+		[Embed(source = "../assets/sounds/162482__kastenfrosch__achievement.mp3")] private var DoorOpen:Class;
+		[Embed(source = "../assets/sounds/warning.mp3")] private var LowTime:Class;
+		private var playedLowTime:Boolean = false;
+		[Embed(source="../assets/sounds/explosion.mp3")] private var Explosion:Class;
 		
 		override public function create():void
 		{
-			timer = new FlxTimer();
+			timer = new FlxTimer();	
 			timer.start((flipTime + 5 * (FlxG.random())), 1, gravityFlip);
 			gameTimer = new FlxTimer();
-			gameTimer.start(120, 1, killPlayer);
+			gameTimer.start(levelLength, 1, explodePlayer);			
 			//Set the background color to light gray (0xAARRGGBB)
 			FlxG.bgColor = 0xffaaaaaa;
 			
@@ -105,6 +111,7 @@ package
 
 			add(status);
 			add(countDown);
+			FlxG.play(StartLevel);
 		}
 		
 		//creates a new document located on the specified tile
@@ -116,23 +123,35 @@ package
 		}
 		
 		private function gravityFlip(timer:FlxTimer):void
-		{		
+		{	
+			FlxG.play(GravityFlipWarning);
 			player.acceleration.y = -player.acceleration.y;
 			var whenFlip:Number = flipTime + 5 * (FlxG.random());
-			trace(whenFlip);
 			timer.start(whenFlip, 1, gravityFlip);
 		}
 		
-		private function killPlayer(gameTimer:FlxTimer):void
+		private function explodePlayer(gameTimer:FlxTimer):void {
+			FlxG.play(Explosion);
+			killPlayer();
+			status.text = "Time's up! You dead!"			
+		}
+		
+		private function killPlayer():void
 		{
 			FlxG.score = 1;
 			player.kill();
-			status.text = "Time's up! You dead!"
+			timer.stop();
 		}
 		
 		override public function update():void
 		{
 			countDown.text = String(Math.ceil(gameTimer.timeLeft));
+			//Play Time Warning at 3 Seconds Left
+			/*
+			if (gameTimer.timeLeft < 3 && playedLowTime == false) {
+				FlxG.play(LowTime);
+				playedLowTime = true;
+			}*/
 			
 			//Updates all the objects appropriately
 			super.update();
