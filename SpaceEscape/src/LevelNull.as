@@ -2,7 +2,7 @@ package
 {
 	import org.flixel.*;
 
-	public class PlayState extends FlxState
+	public class LevelNull extends FlxState
 	{
 		public var level:FlxTilemap;
 		public var exit:Exit;
@@ -120,7 +120,7 @@ package
 			add(documents);
 			
 			//Create player
-			player = new Player()
+			player = new Player(FlxG.width / 2 - 5, 0);
 			add(player);
 			
 			score = new FlxText(2,2,80);
